@@ -8,20 +8,25 @@ const menu=document.querySelector('.menu-icon')
 const nav=document.querySelector('.nav')
 const header=document.querySelector('.header')
 const closing=document.querySelector('.close')
+const home=document.querySelector('.home')
 menu.addEventListener('click',()=>{
+    //header.style.display="block"
+    if([...menu.classList].includes('ri-menu-line')){
+        menu.classList.remove('ri-menu-line')
+        menu.classList.add('ri-close-fill')
+    }else{
+        menu.classList.add('ri-menu-line')
+        menu.classList.remove('ri-close-fill')
+        header.style.display="flex"
+        menu.style.display='block'    
+        
+        
+    }
+    //menu.style.display='none'
+    //closing.style.display='block'
+    home.classList.toggle('padding-section')
     nav.classList.toggle('show-nav')
-    header.style.display="block"
-    menu.style.display='none'
-    closing.style.display='block'
-})
-
-closing.addEventListener('click', function(){
-    header.style.display="flex"
-    menu.style.display='block'    
-    nav.classList.remove('show-nav')
-    nav.style.display='none!important'
-    closing.style.display='none'
-
+    
 })
 
 
@@ -44,6 +49,48 @@ window.onscroll=()=>{
         }
 
     })
+
     //sticky effect when scrolling
     header.classList.toggle('sticky',window.scrollY>100)
+
+    //closing menu when scrolling
+    if([...nav.classList].includes('show-nav')){
+        nav.classList.remove('show-nav')
+        menu.classList.add('ri-menu-line')
+        menu.classList.remove('ri-close-fill')
+        home.classList.remove('padding-section')
+    }
+    
 }
+
+
+//animation when scrolling with reveal js 
+
+ScrollReveal({ 
+    reset: true,
+    distance:'100px',
+    duration:2000,
+    delay:200
+ });
+
+ ScrollReveal().reveal('.home__left,.heading', { origin: 'top' });
+ ScrollReveal().reveal('.home__right,.contact-form,.about__container,.knowldges__container,.projects__container ', { origin: 'bottom' });
+ ScrollReveal().reveal('.name,.about__left', { origin: 'left' });
+ ScrollReveal().reveal('.description', { origin: 'right' });
+
+
+ //scroll to top
+const goToTop=document.querySelector('.go-top')
+goToTop.onclick=()=>{
+    window.scrollTo(0,0)
+}
+
+
+//typed js 
+var typed = new Typed('#element', {
+    strings: ['FullStack', 'Frontend', 'Wordpress'],
+    typeSpeed: 80,
+    backSpeed: 100,
+    backDelay:1000,
+    loop:true,
+  });
